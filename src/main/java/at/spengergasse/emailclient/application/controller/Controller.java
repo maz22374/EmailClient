@@ -108,6 +108,7 @@ public class Controller implements EventHandler<ActionEvent> {
 
     private void sendMail() {
         dialogSendMail = new DialogSendMail(this);
+        dialogSendMail.initOwner(view.getScene().getWindow());
         dialogSendMail.show();
     }
 
@@ -116,6 +117,9 @@ public class Controller implements EventHandler<ActionEvent> {
         List<File> files = fileChooser.showOpenMultipleDialog(view.getScene().getWindow());
 
         attachments = new ArrayList<>();
+
+        if (dialogSendMail.getLabelAttachments().startsWith("Anhänge:"))
+            dialogSendMail.setLabelAttachments(null);
 
         if (files != null && files.size() > 0) {
             for (File file : files) {

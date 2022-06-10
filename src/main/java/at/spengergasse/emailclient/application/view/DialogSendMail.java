@@ -39,10 +39,9 @@ public class DialogSendMail extends Stage {
 
         initGUI();
 
-        setScene(new Scene(vBox));
+        setScene(new Scene(vBox, 1020, 720));
         initModality(Modality.WINDOW_MODAL);
         setTitle("E-Mail versenden");
-        setResizable(false);
         getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/at/spengergasse/emailclient/icon.png"))));
     }
 
@@ -127,8 +126,14 @@ public class DialogSendMail extends Stage {
         return htmlEditor.getHtmlText();
     }
 
+    public String getLabelAttachments() {
+        return attachments.getText();
+    }
+
     public void setLabelAttachments(String fileName) {
-        if (attachments.getText() == null || attachments.getText().isEmpty())
+        if (fileName == null)
+            attachments.setText("");
+        else if (attachments.getText() == null || attachments.getText().isEmpty())
             attachments.setText("Anhänge: " + fileName);
         else
             attachments.setText(attachments.getText() + ", " + fileName);
